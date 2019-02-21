@@ -1,0 +1,6 @@
+name: Frozen
+version: 1.0
+main: cn.foxii.frozen.Frozen
+authors: [Foxii]
+api-version: 1.13
+description: a lite optimization plugin
