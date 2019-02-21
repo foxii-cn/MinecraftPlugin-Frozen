@@ -1,0 +1,38 @@
+#This plugin will check server's TPS every check_interval_tick ticks.
+#If tps lower than freeze_AI_when_TPS_below, plugin will freeze every chunk which's entity more than chunk_entity_threshold.
+#A frozen chunk means every entity in this chunk will not have any AI.
+#Their performance will same as mobs which originate from a mob spawner after you enabled nerf-spawner-mobs in spigot.yml.
+TPSMonitor:
+  #if you disabled TPSMonitor, compatible_with_TPSMonitor will not work either
+  enable: true
+  #time in tick between every TPS check
+  check_interval_tick: 600
+  #time in tick between server started and first TPS check 
+  task_delay_tick: 1200
+  #TPSMonitor will only freeze whole chunk's AI which's entity more than this
+  chunk_entity_threshold: 20
+  #TPSMonitor will only freeze AI when tps lower than this
+  freeze_AI_when_TPS_below: 18.0
+  #when tps higher than this all the AI will be unfreeze
+  unfreeze_all_AI_when_TPS_above: 19.0
+Listener:
+  enable: true
+  on_mob_spawn:
+    enable: true
+    #if you enable this, any entity spawned in a frozen chunk will be frozen immediately
+    compatible_with_TPSMonitor: true
+    freeze_when_entity_above:
+      enable: false
+      chunks_entity: 60
+    freeze_when_TPS_below:
+      enable: false
+      TPS_below: 16
+  on_chunk_load:
+    enable: true
+    compatible_with_TPSMonitor: true
+    freeze_when_entity_above:
+      enable: false
+      chunks_entity: 60
+    freeze_when_TPS_below:
+      enable: false
+      TPS_below: 16
